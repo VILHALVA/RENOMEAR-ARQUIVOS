@@ -29,7 +29,7 @@ MUSICA 01.mp3, MUSICA 02.mp3, MUSICA 03.mp3
 ```
 
 ### 0 (ZERAR NUMERAÇÃO):
-Detecta números no final dos nomes e os formata com **dois dígitos**, adicionando zeros à esquerda.
+Detecta números no final dos nomes e os formata com **dois dígitos**, adicionando um zero à esquerda.
 Ideal para padronizar faixas ou itens numerados.
 
 **Exemplo:**
@@ -96,7 +96,7 @@ Após a execução, uma janela chamada **"RENOMEAR ARQUIVOS"** será exibida. Si
    * `GERAL`: Renomeia todos os arquivos com o nome universal seguido de numeração sequencial (01, 02, ...).
      Se forem arquivos `.mp3`, e possuírem tags ID3 com `tracknumber`, a ordem será respeitada com base nessas faixas.
 
-   * `0`: Zera a numeração dos nomes, adicionando zeros à esquerda (ex: `FAIXA 1` → `FAIXA 01`).
+   * `0`: Zera a numeração dos nomes, adicionando um zero à esquerda (ex: `FAIXA 1` → `FAIXA 01`).
 
    * `UPPER`: Converte todos os nomes para **maiúsculo**.
 
