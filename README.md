@@ -1,7 +1,7 @@
 # RENOMEAR ARQUIVOS
 🎈RENOMEIE OS ARQUIVOS GLOBALMENTE.
 
-<img src="FOTO.png" align="center" width="500"> <br>
+<img src="FOTO.png" align="center" width="500"> <br> 
 
 ## DESCRIÇÃO:
 Este projeto permite que você **renomeie arquivos de qualquer tipo** em um diretório selecionado, oferecendo múltiplos modos de renomeação para diferentes finalidades.
@@ -28,17 +28,21 @@ Track B.mp3 (Faixa 1), Song A.mp3 (Faixa 2), Music C.mp3 (Faixa 3)
 MUSICA 01.mp3, MUSICA 02.mp3, MUSICA 03.mp3
 ```
 
-### 0 (ADICIONAR "0" NO INÍCIO DO NOME):
-Adiciona a letra **"0" no início do nome de todos os arquivos**, sem verificar se já existe.
+### 0 (ZERAR NUMERAÇÃO):
+Detecta números no final dos nomes e os formata com **dois dígitos**, adicionando zeros à esquerda.
+Ideal para padronizar faixas ou itens numerados.
+
 **Exemplo:**
 
 ```
-nota.txt → 0nota.txt  
-imagem.png → 0imagem.png
+FAIXA 1 → FAIXA 01  
+FAIXA 2 → FAIXA 02  
+FAIXA 10 → FAIXA 010
 ```
 
 ### UPPER (NOME EM MAIÚSCULAS):
 Converte todos os nomes de arquivos para letras **maiúsculas**, mantendo espaços.
+
 **Exemplo:**
 
 ```
@@ -47,10 +51,21 @@ meu documento.pdf → MEU DOCUMENTO.pdf
 
 ### LOWER (NOME EM MINÚSCULAS):
 Converte todos os nomes de arquivos para letras **minúsculas**, mantendo espaços.
+
 **Exemplo:**
 
 ```
 Foto De Viagem.JPG → foto de viagem.JPG
+```
+
+### MISTO (PRIMEIRA LETRA MAIÚSCULA):
+Converte somente a **primeira letra do nome** do arquivo para maiúscula, deixando o restante como está.
+
+**Exemplo:**
+
+```
+FAIXA 01 → Faixa 01  
+documento importante.txt → Documento importante.txt
 ```
 
 ## EXECUTANDO O PROJETO:
@@ -75,24 +90,22 @@ python CODIGO.py
 Após a execução, uma janela chamada **"RENOMEAR ARQUIVOS"** será exibida. Siga os passos abaixo:
 
 1. Clique em **"SELECIONAR"** para escolher a pasta onde estão os arquivos que deseja renomear.
-
 2. No campo **"NOME UNIVERSAL"**, digite o nome base que será usado para renomear os arquivos (exemplo: `ARQUIVO`, `DOCUMENTO`, `MUSICA`, etc.).
-
 3. Escolha um dos modos disponíveis:
 
    * `GERAL`: Renomeia todos os arquivos com o nome universal seguido de numeração sequencial (01, 02, ...).
      Se forem arquivos `.mp3`, e possuírem tags ID3 com `tracknumber`, a ordem será respeitada com base nessas faixas.
 
-   * `0`: Adiciona o dígito **0** no início de todos os nomes de arquivos.
+   * `0`: Zera a numeração dos nomes, adicionando zeros à esquerda (ex: `FAIXA 1` → `FAIXA 01`).
 
    * `UPPER`: Converte todos os nomes para **maiúsculo**.
 
    * `LOWER`: Converte todos os nomes para **minúsculo**.
 
+   * `MISTO`: Deixa **apenas a primeira letra maiúscula**, mantendo o restante do nome como está.
+
 4. Clique em **"RENOMEAR"** para iniciar o processo.
-
 5. Após a renomeação, será exibida a mensagem:
-
 ```text
 Renomeação concluída!
 ```
@@ -185,7 +198,7 @@ Você pode adicionar customizações ao seu instalador, como adicionar telas per
 ## NÃO SABE?
 - Entendemos que para manipular arquivos em muitas linguagens, é necessário possuir conhecimento nessas áreas. Para auxiliar nesse aprendizado, oferecemos cursos gratuitos disponíveis:
 * [CURSO DE PYTHON](https://github.com/VILHALVA/CURSO-DE-PYTHON)
-* [CURSO DE TKINTER](https://github.com/VILHALVA/CURSO-DE-TKINTER)
+* [CURSO DE CUSTOMTKINTER](https://github.com/VILHALVA/CURSO-DE-CUSTOMTKINTER)
 * [CURSO DE AUTOMACAO](https://github.com/VILHALVA/CURSO-DE-AUTOMACAO)
 * [CONFIRA MAIS CURSOS](https://github.com/VILHALVA?tab=repositories&q=+topic:CURSO)
 
