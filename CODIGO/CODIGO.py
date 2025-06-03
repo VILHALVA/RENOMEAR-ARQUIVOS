@@ -124,7 +124,7 @@ entry_nome.pack()
 if var_modo.get() == "GERAL":
     frame_nome.pack(pady=10)
 
-btn_renomear = ctk.CTkButton(root, text="RENOMEAR", command=executar_renomeacao, height=40, width=200)
+btn_renomear = ctk.CTkButton(root, text="RENOMEAR", command=executar_renomeacao, height=30, width=100)
 btn_renomear.pack(pady=20)
 
 root.mainloop()
