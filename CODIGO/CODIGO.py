@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
 import os
+import re
 from mutagen.easyid3 import EasyID3
 
 ctk.set_appearance_mode("dark")
@@ -75,13 +76,25 @@ class RenomearArquivos:
         if modo == "GERAL":
             nome = self.entry_nome.get().strip()
             arquivos.sort(key=lambda f: self.obter_faixa(os.path.join(pasta, f)) if f.lower().endswith('.mp3') else 9999)
-            for count, arquivo in enumerate(arquivos, start=1):
-                ext = os.path.splitext(arquivo)[1]
-                if nome:
-                    novo_nome = f"{nome} {count:02d}{ext}"
-                else:
-                    novo_nome = f"{count:02d}{ext}"
-                os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
+
+            padrao = re.match(r"^(.*?)(\d+)$", nome)
+
+            if padrao:
+                prefixo = padrao.group(1).strip()
+                numero_inicial = int(padrao.group(2))
+                casas_decimais = len(padrao.group(2))
+
+                for i, arquivo in enumerate(arquivos):
+                    ext = os.path.splitext(arquivo)[1]
+                    numero_atual = str(numero_inicial + i).zfill(casas_decimais)
+                    novo_nome = f"{prefixo} {numero_atual}{ext}" if prefixo else f"{numero_atual}{ext}"
+                    os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
+            else:
+                for count, arquivo in enumerate(arquivos, start=1):
+                    ext = os.path.splitext(arquivo)[1]
+                    novo_nome = f"{nome} {count:02d}{ext}" if nome else f"{count:02d}{ext}"
+                    os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
+
             messagebox.showinfo("Sucesso", "Arquivos renomeados com sucesso!")
 
         elif modo == "0":
