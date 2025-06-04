@@ -9,18 +9,38 @@ Com uma interface simples, você pode aplicar renomeações em lote com apenas a
 
 ## FUNCIONALIDADES:
 ### GERAL (NOME UNIVERSAL + NUMERAÇÃO SEQUENCIAL):
-Renomeia todos os arquivos do diretório com um nome universal, seguido de numeração sequencial (`01`, `02`, etc).
-Se os arquivos forem MP3 com metadados de faixa (tag `tracknumber`), a ordem da renomeação respeita esses dados automaticamente.
+Renomeia todos os arquivos do diretório com **um nome universal (se fornecido)** seguido de numeração sequencial (`01`, `02`, etc).
 
-**Exemplo com arquivos diversos:**
+Se os arquivos forem MP3 com metadados de faixa (tag `tracknumber`), a ordem da renomeação respeita automaticamente esses dados.
+
+* Se o campo "NOME UNIVERSAL" **estiver preenchido**:
+
+  ```
+  ARQUIVO 01.pdf, ARQUIVO 02.png, ARQUIVO 03.docx
+  ```
+
+* Se o campo "NOME UNIVERSAL" **estiver vazio**:
+
+  ```
+  01.pdf, 02.png, 03.docx
+  ```
+
+* Exemplo com arquivos diversos:
 
 ```
 Imagem1.png, ArquivoB.pdf, Outro.docx
 →
-ARQUIVO 01.png, ARQUIVO 02.pdf, ARQUIVO 03.docx
+RELATORIO 01.png, RELATORIO 02.pdf, RELATORIO 03.docx
 ```
 
-**Exemplo com músicas com tags ID3:**
+Ou, se o campo estiver vazio:
+
+```
+→
+01.png, 02.pdf, 03.docx
+```
+
+* Exemplo com músicas com tags ID3 (tracknumber):
 
 ```
 Track B.mp3 (Faixa 1), Song A.mp3 (Faixa 2), Music C.mp3 (Faixa 3)
@@ -28,8 +48,15 @@ Track B.mp3 (Faixa 1), Song A.mp3 (Faixa 2), Music C.mp3 (Faixa 3)
 MUSICA 01.mp3, MUSICA 02.mp3, MUSICA 03.mp3
 ```
 
+Ou, se o campo estiver vazio:
+
+```
+→
+01.mp3, 02.mp3, 03.mp3
+```
+
 ### 0 (ZERAR NUMERAÇÃO):
-Detecta números no final dos nomes e os formata com **dois dígitos**, adicionando um zero à esquerda.
+Detecta números no final dos nomes e os formata com **mais dígitos**, adicionando um zero à esquerda.
 Ideal para padronizar faixas ou itens numerados.
 
 **Exemplo:**
@@ -93,8 +120,9 @@ Após a execução, uma janela chamada **"RENOMEAR ARQUIVOS"** será exibida. Si
 2. No campo **"NOME UNIVERSAL"**, digite o nome base que será usado para renomear os arquivos (exemplo: `ARQUIVO`, `DOCUMENTO`, `MUSICA`, etc.).
 3. Escolha um dos modos disponíveis:
 
-   * `GERAL`: Renomeia todos os arquivos com o nome universal seguido de numeração sequencial (01, 02, ...).
-     Se forem arquivos `.mp3`, e possuírem tags ID3 com `tracknumber`, a ordem será respeitada com base nessas faixas.
+   * `GERAL`: Renomeia todos os arquivos com **um nome universal (se fornecido)** seguido de numeração sequencial (`01`, `02`, ...).
+   Se o campo de nome universal for deixado em branco, os arquivos serão renomeados **somente com os números sequenciais**.
+   Para arquivos `.mp3`, se houver tags ID3 com `tracknumber`, a ordem será definida com base nessas faixas.
 
    * `0`: Zera a numeração dos nomes, adicionando um zero à esquerda (ex: `FAIXA 1` → `FAIXA 01`).
 

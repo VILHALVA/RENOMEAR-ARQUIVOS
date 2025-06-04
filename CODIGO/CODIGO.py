@@ -74,13 +74,13 @@ class RenomearArquivos:
 
         if modo == "GERAL":
             nome = self.entry_nome.get().strip()
-            if not nome:
-                messagebox.showwarning("Atenção", "Informe um nome universal.")
-                return
             arquivos.sort(key=lambda f: self.obter_faixa(os.path.join(pasta, f)) if f.lower().endswith('.mp3') else 9999)
             for count, arquivo in enumerate(arquivos, start=1):
                 ext = os.path.splitext(arquivo)[1]
-                novo_nome = f"{nome} {count:02d}{ext}"
+                if nome:
+                    novo_nome = f"{nome} {count:02d}{ext}"
+                else:
+                    novo_nome = f"{count:02d}{ext}"
                 os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
             messagebox.showinfo("Sucesso", "Arquivos renomeados com sucesso!")
 
