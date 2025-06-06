@@ -157,7 +157,7 @@ Renomeação concluída!
    pyinstaller EXECUTAVEL.spec
    ```
 
-   * O executável `COPY PASTAS.exe` será criado na pasta `./CODIGO/dist`.
+   * O executável `RENOMEAR ARQUIVOS.exe` será criado na pasta `./CODIGO/dist`.
    * Após a geração, você pode excluir a pasta `./CODIGO/build`.
 
 ### 3. GERANDO O INSTALADOR:
