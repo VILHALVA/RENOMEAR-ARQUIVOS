@@ -170,11 +170,10 @@ Renomeação concluída!
 #### PASSO 2: CRIAR O INSTALADOR:
 > **IMPORTANTE:** Antes de criar o novo instalador, certifique-se de excluir o arquivo `./APP/RENOMEADOR DE ARQUIVOS.exe`.
 
-1. **Editar o arquivo do instalador**
-   No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize o seguinte trecho:
+1. **Editar o arquivo do instalador:**
+   * No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize o seguinte trecho:
 
-   * **Caminho do executável do Diretório:**
-     Atualize a seção `Diretorio` com o caminho correto:
+   * Localize a diretiva `#define Diretorio` e substitua pelo caminho correto do diretório do projeto. Exemplo:
 
      ```ini
      #define Diretorio "C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\RENOMEADOR DE ARQUIVOS\CODIGO"
