@@ -1,4 +1,4 @@
-# RENOMEAR ARQUIVOS
+# RENOMEADOR DE ARQUIVOS
 🎈RENOMEIE OS ARQUIVOS GLOBALMENTE.
 
 <img src="FOTO.png" align="center" width="500"> <br> 
@@ -144,7 +144,7 @@ Renomeação concluída!
   * O instalador está localizado no diretório `./APP` e está disponível apenas para sistemas **Windows x64**. Para realizar a instalação, basta **dar dois cliques no arquivo** e seguir as instruções exibidas na tela.
 
 ### 2. GERANDO O EXECUTAVEL:
-> **IMPORTANTE:** Antes de criar o instalador, é necessário gerar o arquivo `RENOMEAR ARQUIVOS.exe`. Para isso, siga os passos abaixo:
+> **IMPORTANTE:** Antes de criar o instalador, é necessário gerar o arquivo `RENOMEADOR DE ARQUIVOS.exe`. Para isso, siga os passos abaixo:
 
    **1. Instalação do PyInstaller:**
    * Certifique-se de ter o PyInstaller instalado. Se não tiver, instale usando o comando abaixo:
@@ -159,7 +159,7 @@ Renomeação concluída!
    pyinstaller EXECUTAVEL.spec
    ```
 
-   * O executável `RENOMEAR ARQUIVOS.exe` será criado na pasta `./CODIGO/dist`.
+   * O executável `RENOMEADOR DE ARQUIVOS.exe` será criado na pasta `./CODIGO/dist`.
    * Após a geração, você pode excluir a pasta `./CODIGO/build`.
 
 ### 3. GERANDO O INSTALADOR:
@@ -168,31 +168,16 @@ Renomeação concluída!
 2. **Instalação**: Siga o assistente de instalação para instalar o Inno Setup no seu sistema.
 
 #### PASSO 2: CRIAR O INSTALADOR:
-> **IMPORTANTE:** Antes de criar o novo instalador, certifique-se de excluir o arquivo `./APP/RENOMEAR ARQUIVOS.exe`.
+> **IMPORTANTE:** Antes de criar o novo instalador, certifique-se de excluir o arquivo `./APP/RENOMEADOR DE ARQUIVOS.exe`.
 
 1. **Editar o arquivo do instalador**
-   No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize os seguintes trechos:
+   No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize o seguinte trecho:
 
-   * **Versão do Aplicativo:**
-      Atualize o valor da linha `MyAppVersion` com a nova versão do aplicativo.Exemplo:
-
-      ```ini
-      #define MyAppVersion "2.9"
-      ```
-
-   * **Ícone do instalador:**
-     Substitua o caminho atual da linha `SetupIconFile=` pelo caminho correto do seu ícone:
+   * **Caminho do executável do Diretório:**
+     Atualize a seção `Diretorio` com o caminho correto:
 
      ```ini
-     SetupIconFile=C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\RENOMEAR ARQUIVOS\CODIGO\imagem.ico
-     ```
-
-   * **Caminho do executável a ser empacotado:**
-     Atualize a seção `[Files]` com o caminho do executável gerado:
-
-     ```ini
-     [Files]
-     Source: "C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\RENOMEAR ARQUIVOS\CODIGO\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+     #define Diretorio "C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\RENOMEADOR DE ARQUIVOS\CODIGO"
      ```
 
 2. **Gerar o instalador no Inno Setup:**
@@ -200,11 +185,11 @@ Renomeação concluída!
    * Clique em **"Compile"** para gerar o instalador.
 
 3. **Limpar arquivos temporários:**
-   * Após a criação do instalador, você pode excluir o executável temporário `./CODIGO/dist/RENOMEAR ARQUIVOS.exe`.
+   * Após a criação do instalador, você pode excluir o executável temporário `./CODIGO/dist/RENOMEADOR DE ARQUIVOS.exe`.
 
 4. **Instalando o Aplicativo:**
-   * Se o `Aplicativo` não iniciar automaticamente a instalação, você pode executar manualmente o arquivo `./APP/RENOMEAR ARQUIVOS.exe` clicando duas vezes sobre ele.
-   * O assistente de instalação será iniciado e, por padrão, o aplicativo será instalado no seguinte caminho: `C:\Program Files\RENOMEAR ARQUIVOS`.
+   * Se o `Aplicativo` não iniciar automaticamente a instalação, você pode executar manualmente o arquivo `./APP/RENOMEADOR DE ARQUIVOS.exe` clicando duas vezes sobre ele.
+   * O assistente de instalação será iniciado e, por padrão, o aplicativo será instalado no seguinte caminho: `C:\Program Files\RENOMEADOR DE ARQUIVOS`.
 
 ## NÃO SABE?
 - Entendemos que para manipular arquivos em muitas linguagens e tecnologias, é necessário possuir conhecimento nessas áreas. Para auxiliar nesse aprendizado, oferecemos cursos gratuitos e alguns subsídios:

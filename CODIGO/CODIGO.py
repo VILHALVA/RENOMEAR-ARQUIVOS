@@ -2,6 +2,8 @@ import customtkinter as ctk
 from tkinter import filedialog, messagebox
 import os
 import re
+import ctypes
+import os
 from mutagen.easyid3 import EasyID3
 
 ctk.set_appearance_mode("dark")
@@ -17,10 +19,13 @@ class RenomearArquivos:
         self.root.resizable(True, True)
 
         self.var_modo = ctk.StringVar(value="GERAL")
-
-        ctk.CTkLabel(root, text="SELECIONE O DIRETÓRIO:").pack(pady=10)
-        self.entry_pasta = ctk.CTkEntry(root, width=600)
-        self.entry_pasta.pack()
+        self.label_dir = ctk.CTkLabel(
+            root, text="RENOMEADOR DE ARQUIVOS", font=("Arial", 32, "bold")
+        )
+        self.label_dir.pack(pady=10)
+        
+        self.entry_pasta = ctk.CTkEntry(root, width=600, placeholder_text="SELECIONE O DIRETÓRIO")
+        self.entry_pasta.pack(pady=10)
 
         self.btn_pasta = ctk.CTkButton(root, text="SELECIONAR", command=self.selecionar_pasta)
         self.btn_pasta.pack(pady=10)
@@ -71,7 +76,7 @@ class RenomearArquivos:
             messagebox.showerror("Erro", "Por favor, selecione um diretório válido.")
             return
 
-        arquivos = os.listdir(pasta)
+        arquivos = [f for f in os.listdir(pasta) if not is_oculto_ou_sistema(os.path.join(pasta, f))]
 
         if modo == "GERAL":
             nome = self.entry_nome.get().strip()
@@ -145,6 +150,20 @@ class RenomearArquivos:
         else:
             self.frame_nome.pack_forget()
 
+def is_oculto_ou_sistema(path):
+    if os.name == "nt":  
+        try:
+            atributos = ctypes.windll.kernel32.GetFileAttributesW(str(path))
+            if atributos == -1:
+                return False
+            FILE_ATTRIBUTE_HIDDEN = 0x2
+            FILE_ATTRIBUTE_SYSTEM = 0x4
+            return bool(atributos & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM))
+        except Exception:
+            return False
+    else:  
+        return os.path.basename(path).startswith(".")
+        
 if __name__ == "__main__":
     root = ctk.CTk()
     app = RenomearArquivos(root)
