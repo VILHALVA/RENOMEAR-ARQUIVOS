@@ -3,7 +3,6 @@ from tkinter import filedialog, messagebox
 import os
 import re
 import ctypes
-import os
 from mutagen.easyid3 import EasyID3
 
 ctk.set_appearance_mode("dark")
@@ -19,9 +18,9 @@ class RenomearArquivos:
         self.root.resizable(True, True)
 
         self.var_modo = ctk.StringVar(value="GERAL")
-        self.label_dir = ctk.CTkLabel(
-            root, text="RENOMEADOR DE ARQUIVOS", font=("Arial", 32, "bold")
-        )
+        self.var_ordem = ctk.StringVar(value="NOME")
+
+        self.label_dir = ctk.CTkLabel(root, text="RENOMEADOR DE ARQUIVOS", font=("Arial", 32, "bold"))
         self.label_dir.pack(pady=10)
         
         self.entry_pasta = ctk.CTkEntry(root, width=600, placeholder_text="SELECIONE O DIRETÓRIO")
@@ -33,10 +32,17 @@ class RenomearArquivos:
         self.frame_radios = ctk.CTkFrame(root)
         self.frame_radios.pack(pady=10)
 
-        radios = [("GERAL", "GERAL"), ("0", "0"), ("UPPER", "UPPER"), ("LOWER", "LOWER"), ("MISTO", "MISTO")]
-        for texto, valor in radios:
+        modos = [("GERAL", "GERAL"), ("0", "0"), ("UPPER", "UPPER"), ("LOWER", "LOWER"), ("MISTO", "MISTO")]
+        for texto, valor in modos:
             ctk.CTkRadioButton(self.frame_radios, text=texto, variable=self.var_modo, value=valor,
                                command=self.atualizar_visibilidade_nome_universal).pack(side=ctk.LEFT, padx=10)
+
+        self.frame_ordem = ctk.CTkFrame(root)
+        self.frame_ordem.pack(pady=5)
+
+        ordens = [("NOME", "NOME"), ("NÚMERO", "NUMERO"), ("CRIAÇÃO", "CRIACAO"), ("MODIFICAÇÃO", "MODIFICACAO")]
+        for texto, valor in ordens:
+            ctk.CTkRadioButton(self.frame_ordem, text=texto, variable=self.var_ordem, value=valor).pack(side=ctk.LEFT, padx=10)
 
         self.frame_nome = ctk.CTkFrame(root)
         ctk.CTkLabel(self.frame_nome, text="NOME UNIVERSAL:").pack()
@@ -68,6 +74,20 @@ class RenomearArquivos:
             pass
         return 9999
 
+    def ordenar_arquivos(self, arquivos, pasta):
+        criterio = self.var_ordem.get()
+
+        if criterio == "NOME":
+            arquivos.sort()
+        elif criterio == "CRIACAO":
+            arquivos.sort(key=lambda f: os.path.getctime(os.path.join(pasta, f)))
+        elif criterio == "MODIFICACAO":
+            arquivos.sort(key=lambda f: os.path.getmtime(os.path.join(pasta, f)))
+        elif criterio == "NUMERO":
+            arquivos.sort(key=lambda f: self.obter_faixa(os.path.join(pasta, f)))
+
+        return arquivos
+
     def executar_renomeacao(self):
         modo = self.var_modo.get()
         pasta = self.entry_pasta.get().strip()
@@ -76,12 +96,15 @@ class RenomearArquivos:
             messagebox.showerror("Erro", "Por favor, selecione um diretório válido.")
             return
 
-        arquivos = [f for f in os.listdir(pasta) if not is_oculto_ou_sistema(os.path.join(pasta, f))]
+        arquivos = [
+            f for f in os.listdir(pasta)
+            if not is_oculto_ou_sistema(os.path.join(pasta, f))
+        ]
+
+        arquivos = self.ordenar_arquivos(arquivos, pasta)
 
         if modo == "GERAL":
             nome = self.entry_nome.get().strip()
-            arquivos.sort(key=lambda f: self.obter_faixa(os.path.join(pasta, f)) if f.lower().endswith('.mp3') else 9999)
-
             padrao = re.match(r"^(.*?)(\d+)$", nome)
 
             if padrao:
@@ -163,9 +186,8 @@ def is_oculto_ou_sistema(path):
             return False
     else:  
         return os.path.basename(path).startswith(".")
-        
+
 if __name__ == "__main__":
     root = ctk.CTk()
     app = RenomearArquivos(root)
     root.mainloop()
-
