@@ -132,7 +132,7 @@ documento importante.txt → Documento importante.txt
   - Ordena os arquivos pela data/hora em que foram criados no sistema de arquivos.
 
 #### MODIFICAÇÃO:
-* **Ordenar por Data de Modificação**
+* **Ordenar por Data de Modificação:**
   - Classifica os arquivos com base na **última data e hora em que foram alterados**.
   - Pode organizar do **mais antigo para o mais recente** ou vice-versa, dependendo da direção de ordenação escolhida (`CRESCENTE` ou `DESCRESCENTE`).
 
@@ -155,14 +155,7 @@ pip install -r requirements.txt
 > 💡 O arquivo `requirements.txt` está localizado dentro da pasta `./CODIGO`.
 
 ### 2. EXECUTE O APLICATIVO:
-Abra o terminal e navegue até a pasta onde o código está salvo:
-
-```bash
-cd CODIGO
-```
-
-Depois, execute o programa com o comando:
-
+Navegue até o diretório `./CODIGO`, e execute o arquivo Python com o comando:
 ```bash
 python CODIGO.py
 ```
