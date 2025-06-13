@@ -19,10 +19,11 @@ class RenomearArquivos:
 
         self.var_modo = ctk.StringVar(value="GERAL")
         self.var_ordem = ctk.StringVar(value="NOME")
+        self.var_crescente = ctk.BooleanVar(value=True)
 
         self.label_dir = ctk.CTkLabel(root, text="RENOMEADOR DE ARQUIVOS", font=("Arial", 32, "bold"))
         self.label_dir.pack(pady=10)
-        
+
         self.entry_pasta = ctk.CTkEntry(root, width=600, placeholder_text="SELECIONE O DIRETÓRIO")
         self.entry_pasta.pack(pady=10)
 
@@ -40,9 +41,26 @@ class RenomearArquivos:
         self.frame_ordem = ctk.CTkFrame(root)
         self.frame_ordem.pack(pady=5)
 
-        ordens = [("NOME", "NOME"), ("NÚMERO", "NUMERO"), ("CRIAÇÃO", "CRIACAO"), ("MODIFICAÇÃO", "MODIFICACAO")]
+        ordens = [("NOME", "NOME"), ("TÍTULO", "TITULO"), ("NÚMERO", "NUMERO"), ("CRIAÇÃO", "CRIACAO"), ("MODIFICAÇÃO", "MODIFICACAO")]
         for texto, valor in ordens:
             ctk.CTkRadioButton(self.frame_ordem, text=texto, variable=self.var_ordem, value=valor).pack(side=ctk.LEFT, padx=10)
+
+        self.frame_switch = ctk.CTkFrame(root)
+        self.frame_switch.pack(pady=5)
+
+        self.switch_ordem = ctk.CTkSwitch(
+            self.frame_switch,
+            text="CRESCENTE",
+            variable=self.var_crescente,
+            command=self.atualizar_switch_estilo,
+            onvalue=True,
+            offvalue=False,
+            switch_width=40,
+            switch_height=20,
+            progress_color="blue",
+            fg_color="gray"
+        )
+        self.switch_ordem.pack()
 
         self.frame_nome = ctk.CTkFrame(root)
         ctk.CTkLabel(self.frame_nome, text="NOME UNIVERSAL:").pack()
@@ -57,6 +75,14 @@ class RenomearArquivos:
 
         self.footer = ctk.CTkLabel(root, text="APP CRIADO PELO VILHALVA\nGITHUB: @VILHALVA", fg_color="gray", height=40)
         self.footer.pack(side=ctk.BOTTOM, fill=ctk.X)
+
+        self.atualizar_switch_estilo()
+
+    def atualizar_switch_estilo(self):
+        if self.var_crescente.get():
+            self.switch_ordem.configure(text="CRESCENTE", progress_color="blue")
+        else:
+            self.switch_ordem.configure(text="DESCRESCENTE", progress_color="gray")
 
     def selecionar_pasta(self):
         pasta = filedialog.askdirectory(title="SELECIONE O DIRETÓRIO!")
@@ -74,17 +100,28 @@ class RenomearArquivos:
             pass
         return 9999
 
+    def obter_titulo(self, caminho):
+        try:
+            audio = EasyID3(caminho)
+            titulo = audio.get("title", [None])[0]
+            return titulo or ""
+        except Exception:
+            return ""
+
     def ordenar_arquivos(self, arquivos, pasta):
         criterio = self.var_ordem.get()
+        reverso = not self.var_crescente.get()
 
         if criterio == "NOME":
-            arquivos.sort()
+            arquivos.sort(reverse=reverso)
         elif criterio == "CRIACAO":
-            arquivos.sort(key=lambda f: os.path.getctime(os.path.join(pasta, f)))
+            arquivos.sort(key=lambda f: os.path.getctime(os.path.join(pasta, f)), reverse=reverso)
         elif criterio == "MODIFICACAO":
-            arquivos.sort(key=lambda f: os.path.getmtime(os.path.join(pasta, f)))
+            arquivos.sort(key=lambda f: os.path.getmtime(os.path.join(pasta, f)), reverse=reverso)
         elif criterio == "NUMERO":
-            arquivos.sort(key=lambda f: self.obter_faixa(os.path.join(pasta, f)))
+            arquivos.sort(key=lambda f: self.obter_faixa(os.path.join(pasta, f)), reverse=reverso)
+        elif criterio == "TITULO":
+            arquivos.sort(key=lambda f: self.obter_titulo(os.path.join(pasta, f)).lower(), reverse=reverso)
 
         return arquivos
 

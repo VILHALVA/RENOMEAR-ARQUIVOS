@@ -1,5 +1,5 @@
 #define MyAppName "RENOMEADOR DE ARQUIVOS"
-#define MyAppVersion "3.2"
+#define MyAppVersion "3.3"
 #define MyAppPublisher "My Company, Inc."
 #define Diretorio "C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\RENOMEADOR DE ARQUIVOS\CODIGO"
 #define MyAppURL "https://www.example.com/"
