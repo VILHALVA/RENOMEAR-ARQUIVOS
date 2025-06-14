@@ -98,7 +98,7 @@ Foto De Viagem.JPG → foto de viagem.JPG
 ```
 
 #### MISTO (PRIMEIRAS LETRAS EM `MAIÚSCULAS`):
-Converte somente a **primeira letra do nome** do arquivo para maiúscula, deixando o restante como está.
+Converte apenas a **primeira letra de cada nome de arquivo** para maiúscula, mantendo o restante dos caracteres inalterado.
 
 **Exemplo:**
 
