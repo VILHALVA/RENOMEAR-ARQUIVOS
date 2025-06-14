@@ -79,7 +79,7 @@ FAIXA 10  → FAIXA 010
 FAIXA 123 → FAIXA 123  (não é alterado, pois já possui 3 dígitos)
 ```
 
-#### UPPER (NOME EM MAIÚSCULAS):
+#### UPPER (NOMES EM `MAIÚSCULAS`):
 Converte todos os nomes de arquivos para letras **maiúsculas**, mantendo espaços.
 
 **Exemplo:**
@@ -88,7 +88,7 @@ Converte todos os nomes de arquivos para letras **maiúsculas**, mantendo espaç
 meu documento.pdf → MEU DOCUMENTO.pdf
 ```
 
-#### LOWER (NOME EM MINÚSCULAS):
+#### LOWER (NOMES EM `MINÚSCULAS`):
 Converte todos os nomes de arquivos para letras **minúsculas**, mantendo espaços.
 
 **Exemplo:**
@@ -97,7 +97,7 @@ Converte todos os nomes de arquivos para letras **minúsculas**, mantendo espaç
 Foto De Viagem.JPG → foto de viagem.JPG
 ```
 
-#### MISTO (PRIMEIRA LETRA MAIÚSCULA):
+#### MISTO (PRIMEIRA LETRA EM `MAIÚSCULA`):
 Converte somente a **primeira letra do nome** do arquivo para maiúscula, deixando o restante como está.
 
 **Exemplo:**
