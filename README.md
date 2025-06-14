@@ -3,33 +3,29 @@
 
 <img src="FOTO.png" align="center" width="500"> <br> 
 
+## MUNDANÇA:
+
+🔹**Controles de ordenação visíveis apenas no modo GERAL**: Os botões de ordenação e o switch de ordem agora só aparecem e funcionam quando o modo **GERAL** está selecionado.
+
+🔹**Seção de zeros à esquerda no modo "0"**: Ao selecionar o modo **"0"**, uma nova seção com o controle **QUANTIDADE** (slider de 1 a 9) é exibida acima do botão **RENOMEAR**, permitindo definir o número de dígitos.
+
+🔹 **Botão RESETAR**: Permite desfazer a **última renomeação realizada**, restaurando os nomes originais dos arquivos. **Não feche o aplicativo ou inicie uma nova renomeação**, senão a ação de resetar será perdida.
+
+
 ## DESCRIÇÃO:
-Este projeto é uma **ferramenta gráfica avançada para renomeação em massa de arquivos**, desenvolvida com a biblioteca `customtkinter`. Ele permite que você **renomeie arquivos de qualquer tipo** em um diretório selecionado, de forma rápida, segura e personalizável.
+Este projeto é uma ferramenta gráfica avançada para renomeação em massa de arquivos, criada com `customtkinter`. Permite renomear arquivos de qualquer tipo em um diretório, de forma rápida, segura e personalizada.
 
-Com este aplicativo, você pode:
-
-* Escolher entre **vários modos de renomeação**, como:
-
-  * Nomeação sequencial com número automático.
-  * Conversão de letras para **maiúsculas**, **minúsculas** ou **capitalização mista**.
-  * Padronização de números com **zeros à esquerda**.
-
-* Definir um **nome base universal** que será usado como padrão em todos os arquivos.
-
-* Aplicar **diferentes critérios de ordenação** antes da renomeação:
-
-  * Por nome atual do arquivo.
-  * Por metadado de **título** (especialmente útil para músicas).
-  * Pelo número da faixa (`tracknumber`) de arquivos `.mp3`.
-  * Pela data de **criação** ou de **modificação** do arquivo.
-
-* Controlar a **direção da ordenação** (CRESCENTE ou DESCRESCENTE) com um botão de alternância intuitivo.
-
-Além disso, o sistema ignora arquivos ocultos ou de sistema automaticamente, garantindo que apenas os arquivos visíveis e relevantes sejam renomeados.
-
-É ideal para organizar coleções de músicas, documentos, imagens, vídeos ou qualquer outro conjunto de arquivos com eficiência e precisão.
+Ideal para organizar grandes coleções de músicas, documentos, imagens e vídeos com rapidez e precisão.
 
 ## FUNCIONALIDADES:
+* Diversos modos de renomeação, como numeração sequencial automática, conversão para maiúsculas, minúsculas ou capitalização mista, e padronização de números com zeros à esquerda.
+* Definição de nome base personalizado para os arquivos.
+* Vários critérios de ordenação antes da renomeação: por nome, título (metadado), número da faixa em MP3, data de criação ou modificação.
+* Controle da ordem crescente ou decrescente via botão intuitivo.
+* Ignora automaticamente arquivos ocultos e de sistema.
+* Botão **RESETAR** para restaurar os nomes originais dos arquivos, garantindo segurança e reversibilidade no processo.
+
+## RECURSOS:
 ### MODO DE RENOMEAÇÃO:
 #### GERAL (NOME UNIVERSAL + NUMERAÇÃO SEQUENCIAL):
 Renomeia todos os arquivos do diretório com um **nome universal opcional** seguido de numeração sequencial (`01`, `02`, etc).
@@ -77,15 +73,19 @@ Renomeia todos os arquivos do diretório com um **nome universal opcional** segu
   ```
   05 → 05.ext, 06.ext, 07.ext, ...
   ```
-#### 0 (ZERAR NUMERAÇÃO):
-Detecta números no final dos nomes e os formata com **mais dígitos**, adicionando zeros à esquerda.
 
-**Exemplo:**
+#### 0 (ZERAR NUMERAÇÃO):
+Detecta automaticamente **números ao final dos nomes dos arquivos** e os **padroniza com zeros à esquerda**, com base na quantidade de dígitos escolhida no controle deslizante.
+
+Somente os arquivos que tiverem **menos dígitos que o desejado** serão renomeados, evitando modificações desnecessárias.
+
+**Exemplo com 3 dígitos definidos:**
 
 ```
-FAIXA 1 → FAIXA 001  
-FAIXA 2 → FAIXA 002  
-FAIXA 10 → FAIXA 010
+FAIXA 1   → FAIXA 001  
+FAIXA 2   → FAIXA 002  
+FAIXA 10  → FAIXA 010  
+FAIXA 123 → FAIXA 123  (não é alterado, pois já possui 3 dígitos)
 ```
 
 #### UPPER (NOME EM MAIÚSCULAS):
@@ -117,6 +117,8 @@ documento importante.txt → Documento importante.txt
 ```
 
 ### ORDEM DE RENOMEAÇÃO:
+> Visível e aplicável apenas quando o "MODO" selecionado é "GERAL".
+
 #### NOME:
 * **Ordenar por NOME:**
   - Ordena os arquivos em ordem alfabética pelo nome do arquivo (padrão simples).
@@ -143,6 +145,18 @@ Esse botão de **"CRESCENTE/DESCRESCENTE"** controla a ordem em que os arquivos 
 * **DESCRESCENTE** (desativado): faz o contrário — do maior para o menor.
 
 Essa ordem afeta todos os botões de ordenação: **NOME, TÍTULO, NÚMERO, CRIAÇÃO e MODIFICAÇÃO**.
+
+### BOTÃO RESETAR:
+O botão **RESETAR** permite **desfazer a última renomeação feita**, restaurando todos os arquivos aos seus **nomes originais anteriores**. Isso oferece uma camada extra de segurança ao processo, permitindo correções rápidas caso algo não saia como o esperado.
+
+* **Como funciona?**
+  - Ele só estará disponível **após uma renomeação** ser realizada.
+  - Armazena um **backup temporário dos nomes antigos**, válido apenas até a próxima execução.
+  - Ao clicar em **RESETAR**, os nomes dos arquivos são revertidos para o estado imediatamente anterior à última alteração.
+
+* **Observações:**
+  - Só reverte a **última operação** feita.
+  - Se o app for fechado ou uma nova renomeação for realizada, a possibilidade de resetar será perdida.
 
 ## EXECUTANDO O PROJETO:
 ### 1. INSTALE AS DEPENDÊNCIAS:
@@ -180,7 +194,7 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
      * Se o nome universal for apenas um número, por exemplo:
        `05 → 05.ext, 06.ext, 07.ext, ...`
 
-   * `0`: Ajusta os números no final dos nomes para terem zeros à esquerda, padronizando a numeração (ex: `FAIXA 1` → `FAIXA 001`, `FAIXA 10` → `FAIXA 010`).
+    * `0`: **Adiciona zeros à esquerda** nos números presentes no final do nome dos arquivos, de acordo com a quantidade definida pelo controle deslizante (**Slider de dígitos**). Lembre-se que somente os arquivos que tiverem **menos dígitos que o desejado** serão renomeados.
 
    * `UPPER`: Converte todos os nomes para letras **maiúsculas**.
 
@@ -208,6 +222,8 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
 ```text
 Renomeação concluída!
 ```
+
+8. (Opcional) Clique em **"RESETAR"** para desfazer a última renomeação e restaurar os nomes originais dos arquivos.
 
 ## SOBRE O EXECUTAVEL E O INSTALADOR:
 ### 1. EXECUTANDO O INSTALADOR:

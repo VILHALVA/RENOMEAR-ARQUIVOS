@@ -20,34 +20,32 @@ class RenomearArquivos:
         self.var_modo = ctk.StringVar(value="GERAL")
         self.var_ordem = ctk.StringVar(value="NOME")
         self.var_crescente = ctk.BooleanVar(value=True)
+        self.var_zeros = ctk.IntVar(value=1)
+
+        self.backup_nomes = []  
 
         self.label_dir = ctk.CTkLabel(root, text="RENOMEADOR DE ARQUIVOS", font=("Arial", 32, "bold"))
         self.label_dir.pack(pady=10)
-
+        
         self.entry_pasta = ctk.CTkEntry(root, width=600, placeholder_text="SELECIONE O DIRETÓRIO")
         self.entry_pasta.pack(pady=10)
-
         self.btn_pasta = ctk.CTkButton(root, text="SELECIONAR", command=self.selecionar_pasta)
         self.btn_pasta.pack(pady=10)
 
         self.frame_radios = ctk.CTkFrame(root)
         self.frame_radios.pack(pady=10)
-
         modos = [("GERAL", "GERAL"), ("0", "0"), ("UPPER", "UPPER"), ("LOWER", "LOWER"), ("MISTO", "MISTO")]
         for texto, valor in modos:
             ctk.CTkRadioButton(self.frame_radios, text=texto, variable=self.var_modo, value=valor,
-                               command=self.atualizar_visibilidade_nome_universal).pack(side=ctk.LEFT, padx=10)
+                               command=self.atualizar_visibilidade_componentes).pack(side=ctk.LEFT, padx=10)
 
         self.frame_ordem = ctk.CTkFrame(root)
-        self.frame_ordem.pack(pady=5)
-
-        ordens = [("NOME", "NOME"), ("TÍTULO", "TITULO"), ("NÚMERO", "NUMERO"), ("CRIAÇÃO", "CRIACAO"), ("MODIFICAÇÃO", "MODIFICACAO")]
+        ordens = [("NOME", "NOME"), ("TÍTULO", "TITULO"), ("NÚMERO", "NUMERO"),
+                  ("CRIAÇÃO", "CRIACAO"), ("MODIFICAÇÃO", "MODIFICACAO")]
         for texto, valor in ordens:
             ctk.CTkRadioButton(self.frame_ordem, text=texto, variable=self.var_ordem, value=valor).pack(side=ctk.LEFT, padx=10)
 
         self.frame_switch = ctk.CTkFrame(root)
-        self.frame_switch.pack(pady=5)
-
         self.switch_ordem = ctk.CTkSwitch(
             self.frame_switch,
             text="CRESCENTE",
@@ -57,8 +55,7 @@ class RenomearArquivos:
             offvalue=False,
             switch_width=40,
             switch_height=20,
-            progress_color="blue",
-            fg_color="gray"
+            progress_color="blue"
         )
         self.switch_ordem.pack()
 
@@ -67,22 +64,39 @@ class RenomearArquivos:
         self.entry_nome = ctk.CTkEntry(self.frame_nome, width=300)
         self.entry_nome.pack()
 
-        if self.var_modo.get() == "GERAL":
-            self.frame_nome.pack(pady=10)
+        self.frame_zeros = ctk.CTkFrame(root)
+        self.label_zeros = ctk.CTkLabel(self.frame_zeros, text="QUANTIDADE: 1")
+        self.label_zeros.pack(pady=5)
+        self.slider_zeros = ctk.CTkSlider(
+            self.frame_zeros,
+            from_=1,
+            to=9,
+            number_of_steps=8,
+            variable=self.var_zeros,
+            command=self.atualizar_label_zeros
+        )
+        self.slider_zeros.pack(padx=20)
 
         self.btn_renomear = ctk.CTkButton(root, text="RENOMEAR", command=self.executar_renomeacao)
-        self.btn_renomear.pack(pady=20)
+        self.btn_renomear.pack(pady=10)
+
+        self.btn_resetar = ctk.CTkButton(root, text="RESETAR", command=self.resetar_nomes)
+        self.btn_resetar.pack(pady=0)
 
         self.footer = ctk.CTkLabel(root, text="APP CRIADO PELO VILHALVA\nGITHUB: @VILHALVA", fg_color="gray", height=40)
         self.footer.pack(side=ctk.BOTTOM, fill=ctk.X)
 
         self.atualizar_switch_estilo()
+        self.atualizar_visibilidade_componentes()
 
     def atualizar_switch_estilo(self):
         if self.var_crescente.get():
             self.switch_ordem.configure(text="CRESCENTE", progress_color="blue")
         else:
             self.switch_ordem.configure(text="DESCRESCENTE", progress_color="gray")
+
+    def atualizar_label_zeros(self, valor):
+        self.label_zeros.configure(text=f"QUANTIDADE: {int(float(valor))}")
 
     def selecionar_pasta(self):
         pasta = filedialog.askdirectory(title="SELECIONE O DIRETÓRIO!")
@@ -126,6 +140,7 @@ class RenomearArquivos:
         return arquivos
 
     def executar_renomeacao(self):
+        self.backup_nomes.clear()
         modo = self.var_modo.get()
         pasta = self.entry_pasta.get().strip()
 
@@ -133,16 +148,12 @@ class RenomearArquivos:
             messagebox.showerror("Erro", "Por favor, selecione um diretório válido.")
             return
 
-        arquivos = [
-            f for f in os.listdir(pasta)
-            if not is_oculto_ou_sistema(os.path.join(pasta, f))
-        ]
-
-        arquivos = self.ordenar_arquivos(arquivos, pasta)
+        arquivos = [f for f in os.listdir(pasta) if not is_oculto_ou_sistema(os.path.join(pasta, f))]
 
         if modo == "GERAL":
             nome = self.entry_nome.get().strip()
             padrao = re.match(r"^(.*?)(\d+)$", nome)
+            arquivos = self.ordenar_arquivos(arquivos, pasta)
 
             if padrao:
                 prefixo = padrao.group(1).strip()
@@ -153,28 +164,49 @@ class RenomearArquivos:
                     ext = os.path.splitext(arquivo)[1]
                     numero_atual = str(numero_inicial + i).zfill(casas_decimais)
                     novo_nome = f"{prefixo} {numero_atual}{ext}" if prefixo else f"{numero_atual}{ext}"
+                    self.backup_nomes.append((novo_nome, arquivo))
                     os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
             else:
                 for count, arquivo in enumerate(arquivos, start=1):
                     ext = os.path.splitext(arquivo)[1]
                     novo_nome = f"{nome} {count:02d}{ext}" if nome else f"{count:02d}{ext}"
+                    self.backup_nomes.append((novo_nome, arquivo))
                     os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
 
             messagebox.showinfo("Sucesso", "Arquivos renomeados com sucesso!")
 
         elif modo == "0":
-            for arquivo in arquivos:
+            qtd_zeros = self.var_zeros.get()
+            renomeado = False
+
+            for i, arquivo in enumerate(arquivos, start=1):
                 caminho_antigo = os.path.join(pasta, arquivo)
                 if os.path.isfile(caminho_antigo):
                     nome, ext = os.path.splitext(arquivo)
-                    if " " in nome:
+                    novo_nome = None
+
+                    if nome.isdigit():
+                        if len(nome) >= qtd_zeros:
+                            continue  
+                        novo_nome = f"{nome.zfill(qtd_zeros)}{ext}"
+
+                    elif " " in nome:
                         prefixo, sufixo = nome.rsplit(" ", 1)
                         if sufixo.isdigit():
-                            sufixo = sufixo.zfill(3)
+                            if len(sufixo) >= qtd_zeros:
+                                continue
+                            sufixo = sufixo.zfill(qtd_zeros)
                             novo_nome = f"{prefixo} {sufixo}{ext}"
-                            caminho_novo = os.path.join(pasta, novo_nome)
-                            os.rename(caminho_antigo, caminho_novo)
-            messagebox.showinfo("Sucesso", "Números atualizados com zero à esquerda!")
+
+                    if novo_nome and novo_nome != arquivo:
+                        self.backup_nomes.append((novo_nome, arquivo))
+                        os.rename(caminho_antigo, os.path.join(pasta, novo_nome))
+                        renomeado = True
+
+            if renomeado:
+                messagebox.showinfo("Sucesso", "Números atualizados com zeros à esquerda!")
+            else:
+                messagebox.showwarning("Aviso", f"Nenhum arquivo foi renomeado. Todos já possuem {qtd_zeros} dígitos ou mais.")
 
         elif modo == "UPPER":
             for arquivo in arquivos:
@@ -182,6 +214,7 @@ class RenomearArquivos:
                 if os.path.isfile(caminho):
                     nome, ext = os.path.splitext(arquivo)
                     novo_nome = f"{nome.upper()}{ext}"
+                    self.backup_nomes.append((novo_nome, arquivo))
                     os.rename(caminho, os.path.join(pasta, novo_nome))
             messagebox.showinfo("Sucesso", "Arquivos renomeados para MAIÚSCULO!")
 
@@ -191,6 +224,7 @@ class RenomearArquivos:
                 if os.path.isfile(caminho):
                     nome, ext = os.path.splitext(arquivo)
                     novo_nome = f"{nome.lower()}{ext}"
+                    self.backup_nomes.append((novo_nome, arquivo))
                     os.rename(caminho, os.path.join(pasta, novo_nome))
             messagebox.showinfo("Sucesso", "Arquivos renomeados para minúsculo!")
 
@@ -200,18 +234,49 @@ class RenomearArquivos:
                 if os.path.isfile(caminho):
                     nome, ext = os.path.splitext(arquivo)
                     novo_nome = f"{nome.capitalize()}{ext}"
+                    self.backup_nomes.append((novo_nome, arquivo))
                     os.rename(caminho, os.path.join(pasta, novo_nome))
             messagebox.showinfo("Sucesso", "Arquivos com apenas a primeira letra maiúscula!")
 
-    def atualizar_visibilidade_nome_universal(self):
-        if self.var_modo.get() == "GERAL":
-            self.frame_nome.pack_forget()
-            self.frame_nome.pack(pady=10, before=self.btn_renomear)
+    def resetar_nomes(self):
+        pasta = self.entry_pasta.get().strip()
+        if not self.backup_nomes:
+            messagebox.showwarning("Aviso", "Nenhuma renomeação recente encontrada para resetar.")
+            return
+
+        erros = []
+        for novo, antigo in self.backup_nomes:
+            caminho_novo = os.path.join(pasta, novo)
+            caminho_antigo = os.path.join(pasta, antigo)
+            if os.path.exists(caminho_novo):
+                try:
+                    os.rename(caminho_novo, caminho_antigo)
+                except Exception as e:
+                    erros.append(f"{novo} -> {antigo}: {e}")
+        self.backup_nomes.clear()
+
+        if erros:
+            messagebox.showerror("Erros", "\n".join(erros))
         else:
-            self.frame_nome.pack_forget()
+            messagebox.showinfo("Sucesso", "Arquivos restaurados com sucesso!")
+
+    def atualizar_visibilidade_componentes(self):
+        modo = self.var_modo.get()
+        self.frame_nome.pack_forget()
+        self.frame_ordem.pack_forget()
+        self.frame_switch.pack_forget()
+        self.frame_zeros.pack_forget()
+
+        if modo == "GERAL":
+            self.frame_ordem.pack(pady=5, before=self.btn_renomear)
+            self.frame_switch.pack(pady=5, before=self.btn_renomear)
+            self.frame_nome.pack(pady=10, before=self.btn_renomear)
+        elif modo == "0":
+            self.frame_zeros.pack(pady=10, before=self.btn_renomear)
+            self.atualizar_label_zeros(self.var_zeros.get())
 
 def is_oculto_ou_sistema(path):
-    if os.name == "nt":  
+    if os.name == "nt":
         try:
             atributos = ctypes.windll.kernel32.GetFileAttributesW(str(path))
             if atributos == -1:
@@ -221,7 +286,7 @@ def is_oculto_ou_sistema(path):
             return bool(atributos & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM))
         except Exception:
             return False
-    else:  
+    else:
         return os.path.basename(path).startswith(".")
 
 if __name__ == "__main__":
