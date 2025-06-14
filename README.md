@@ -209,7 +209,7 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
 
 5. Clique em **"RENOMEAR"** para iniciar o processo.
 
-6. Após a renomeação, será exibida a mensagem: `Renomeação concluída!`
+6. Após a renomeação, será exibida a mensagem de `sucesso`.
 
 7. (Opcional) Clique em **"RESETAR"** para desfazer a última renomeação e restaurar os nomes originais dos arquivos.
 
