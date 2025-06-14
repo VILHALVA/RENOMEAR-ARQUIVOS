@@ -185,7 +185,7 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
      * Se o nome universal for apenas um número, por exemplo:
        `05 → 05.ext, 06.ext, 07.ext, ...`
 
-   * `0 – Zeros à esquerda:` Ajusta os números localizados no final do nome dos arquivos, **adicionando zeros à esquerda** conforme a quantidade definida no **controle deslizante (slider de dígitos)**. O valor padrão é **3 dígitos**. Apenas arquivos com **menos dígitos do que o especificado** serão renomeados — os demais permanecem inalterados.
+   * `0`: Ajusta os números localizados no final do nome dos arquivos, **adicionando zeros à esquerda** conforme a quantidade definida no **controle deslizante (slider de dígitos)**. O valor padrão é **3 dígitos**. Apenas arquivos com **menos dígitos do que o especificado** serão renomeados — os demais permanecem inalterados.
 
    * `UPPER`: Converte todos os nomes para letras **maiúsculas**.
 
