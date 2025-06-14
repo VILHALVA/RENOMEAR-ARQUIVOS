@@ -65,7 +65,7 @@ Renomeia todos os arquivos do diretório com um **nome universal opcional** segu
   05 → 05.ext, 06.ext, 07.ext, ...
   ```
 
-#### 0 (ZERAR NUMERAÇÃO):
+#### 0 (ADICIONA `0`):
 Detecta automaticamente **números ao final dos nomes dos arquivos** e os **padroniza com zeros à esquerda**, com base na quantidade de dígitos escolhida no controle deslizante. O valor padrão é **3 dígitos**.
 
 Somente os arquivos que tiverem **menos dígitos que o desejado** serão renomeados, evitando modificações desnecessárias.
@@ -130,6 +130,8 @@ documento importante.txt → Documento importante.txt
   - Pode organizar do **mais antigo para o mais recente** ou vice-versa, dependendo da direção de ordenação escolhida (`CRESCENTE` ou `DESCRESCENTE`).
 
 ### BOTÃO CRESCENTE/DESCRESCENTE:
+> Visível e aplicável apenas quando o "MODO" selecionado é "GERAL".
+
 Esse botão de **"CRESCENTE/DESCRESCENTE"** controla a ordem em que os arquivos são organizados antes de serem renomeados:
 
 * **CRESCENTE** (ativado): ordena do menor para o maior — por exemplo, do nome "A" para "Z", do número 1 para 10, ou da data mais antiga para a mais recente.
@@ -176,7 +178,6 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
 3. Escolha um dos modos disponíveis:
 
    * `GERAL`: Renomeia todos os arquivos com um **nome universal opcional** seguido de numeração sequencial (`01`, `02`, ...).
-
      * Se o campo de nome universal estiver vazio, renomeia apenas com os números sequenciais.
      * Para arquivos `.mp3`, a ordenação usa a tag ID3 `tracknumber` (número da faixa) quando disponível.
      * Para outros formatos, a ordenação padrão será a escolhida nos botões de ordenação.
@@ -184,6 +185,19 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
        `FAIXA 05 → FAIXA 05.ext, FAIXA 06.ext, FAIXA 07.ext, ...`
      * Se o nome universal for apenas um número, por exemplo:
        `05 → 05.ext, 06.ext, 07.ext, ...`
+
+      **Escolha a forma de ordenação dos arquivos antes da renomeação:**
+
+        * `NOME`: Ordenação alfabética com base no nome atual do arquivo (renomeado manualmente).
+        * `TÍTULO`: Ordenação com base no campo de **metadados "TÍTULO"** dos arquivos (comum em músicas `.mp3`).
+        * `NÚMERO`: Ordena pelos **números das faixas** extraídos dos metadados dos arquivos `.mp3`.
+        * `CRIAÇÃO`: Ordena pela **data de criação** dos arquivos.
+        * `MODIFICAÇÃO`: Ordena pela **data da última modificação** dos arquivos.
+
+      **Use o botão **CRESCENTE/DESCRESCENTE** para definir a direção da ordenação:**
+
+        * Quando **ativado (CRESCENTE)**: ordena do menor para o maior (ex: `A → Z`, `1 → 10`, mais antigo → mais novo).
+        * Quando **desativado (DESCRESCENTE)**: faz o contrário (ex: `Z → A`, `10 → 1`, mais novo → mais antigo).
 
    * `0`: Ajusta os números localizados no final do nome dos arquivos, **adicionando zeros à esquerda** conforme a quantidade definida no **controle deslizante (slider de dígitos)**. O valor padrão é **3 dígitos**. Apenas arquivos com **menos dígitos do que o especificado** serão renomeados — os demais permanecem inalterados.
 
@@ -193,28 +207,11 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
 
    * `MISTO`: Deixa **apenas a primeira letra maiúscula** de cada nome, mantendo o restante como está.
 
-4. Escolha a forma de ordenação dos arquivos antes da renomeação:
+5. Clique em **"RENOMEAR"** para iniciar o processo.
 
-   * `NOME`: Ordenação alfabética com base no nome atual do arquivo (renomeado manualmente).
-   * `TÍTULO`: Ordenação com base no campo de **metadados "TÍTULO"** dos arquivos (comum em músicas `.mp3`).
-   * `NÚMERO`: Ordena pelos **números das faixas** extraídos dos metadados dos arquivos `.mp3`.
-   * `CRIAÇÃO`: Ordena pela **data de criação** dos arquivos.
-   * `MODIFICAÇÃO`: Ordena pela **data da última modificação** dos arquivos.
+6. Após a renomeação, será exibida a mensagem: `Renomeação concluída!`
 
-5. Use o botão **CRESCENTE/DESCRESCENTE** para definir a direção da ordenação:
-
-   * Quando **ativado (CRESCENTE)**: ordena do menor para o maior (ex: `A → Z`, `1 → 10`, mais antigo → mais novo).
-   * Quando **desativado (DESCRESCENTE)**: faz o contrário (ex: `Z → A`, `10 → 1`, mais novo → mais antigo).
-
-6. Clique em **"RENOMEAR"** para iniciar o processo.
-
-7. Após a renomeação, será exibida a mensagem:
-
-```text
-Renomeação concluída!
-```
-
-8. (Opcional) Clique em **"RESETAR"** para desfazer a última renomeação e restaurar os nomes originais dos arquivos.
+7. (Opcional) Clique em **"RESETAR"** para desfazer a última renomeação e restaurar os nomes originais dos arquivos.
 
 ## SOBRE O EXECUTAVEL E O INSTALADOR:
 ### 1. EXECUTANDO O INSTALADOR:
