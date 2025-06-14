@@ -205,7 +205,7 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
 
    * `LOWER`: Converte todos os nomes para letras **minúsculas**.
 
-   * `MISTO`: Deixa **apenas a primeira letra maiúscula** de cada nome, mantendo o restante como está.
+   * `MISTO`: Deixa **apenas a primeira letra maiúscula** de cada nome, mantendo o restante dos caracteres inalterado.
 
 5. Clique em **"RENOMEAR"** para iniciar o processo.
 
