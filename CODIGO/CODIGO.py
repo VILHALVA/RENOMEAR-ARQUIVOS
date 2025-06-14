@@ -64,8 +64,10 @@ class RenomearArquivos:
         self.entry_nome = ctk.CTkEntry(self.frame_nome, width=300)
         self.entry_nome.pack()
 
+        self.var_zeros = ctk.IntVar(value=3)  
         self.frame_zeros = ctk.CTkFrame(root)
-        self.label_zeros = ctk.CTkLabel(self.frame_zeros, text="QUANTIDADE: 1")
+        self.label_zeros = ctk.CTkLabel(self.frame_zeros, text=f"QUANTIDADE: {self.var_zeros}")
+        
         self.label_zeros.pack(pady=5)
         self.slider_zeros = ctk.CTkSlider(
             self.frame_zeros,

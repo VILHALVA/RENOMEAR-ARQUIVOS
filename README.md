@@ -3,15 +3,6 @@
 
 <img src="FOTO.png" align="center" width="500"> <br> 
 
-## MUNDANÇA:
-
-🔹**Controles de ordenação visíveis apenas no modo GERAL**: Os botões de ordenação e o switch de ordem agora só aparecem e funcionam quando o modo **GERAL** está selecionado.
-
-🔹**Seção de zeros à esquerda no modo "0"**: Ao selecionar o modo **"0"**, uma nova seção com o controle **QUANTIDADE** (slider de 1 a 9) é exibida acima do botão **RENOMEAR**, permitindo definir o número de dígitos.
-
-🔹 **Botão RESETAR**: Permite desfazer a **última renomeação realizada**, restaurando os nomes originais dos arquivos. **Não feche o aplicativo ou inicie uma nova renomeação**, senão a ação de resetar será perdida.
-
-
 ## DESCRIÇÃO:
 Este projeto é uma ferramenta gráfica avançada para renomeação em massa de arquivos, criada com `customtkinter`. Permite renomear arquivos de qualquer tipo em um diretório, de forma rápida, segura e personalizada.
 
@@ -75,7 +66,7 @@ Renomeia todos os arquivos do diretório com um **nome universal opcional** segu
   ```
 
 #### 0 (ZERAR NUMERAÇÃO):
-Detecta automaticamente **números ao final dos nomes dos arquivos** e os **padroniza com zeros à esquerda**, com base na quantidade de dígitos escolhida no controle deslizante.
+Detecta automaticamente **números ao final dos nomes dos arquivos** e os **padroniza com zeros à esquerda**, com base na quantidade de dígitos escolhida no controle deslizante. O valor padrão é **3 dígitos**.
 
 Somente os arquivos que tiverem **menos dígitos que o desejado** serão renomeados, evitando modificações desnecessárias.
 
@@ -194,7 +185,7 @@ Após abrir a janela chamada **"RENOMEADOR DE ARQUIVOS"**, siga os passos abaixo
      * Se o nome universal for apenas um número, por exemplo:
        `05 → 05.ext, 06.ext, 07.ext, ...`
 
-    * `0`: **Adiciona zeros à esquerda** nos números presentes no final do nome dos arquivos, de acordo com a quantidade definida pelo controle deslizante (**Slider de dígitos**). Lembre-se que somente os arquivos que tiverem **menos dígitos que o desejado** serão renomeados.
+   * `0 – Zeros à esquerda:` Ajusta os números localizados no final do nome dos arquivos, **adicionando zeros à esquerda** conforme a quantidade definida no **controle deslizante (slider de dígitos)**. O valor padrão é **3 dígitos**. Apenas arquivos com **menos dígitos do que o especificado** serão renomeados — os demais permanecem inalterados.
 
    * `UPPER`: Converte todos os nomes para letras **maiúsculas**.
 
