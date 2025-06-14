@@ -1,7 +1,9 @@
 # RENOMEADOR DE ARQUIVOS
 👨‍🏫RENOMEIE OS ARQUIVOS GLOBALMENTE.
 
-<img src="FOTO.png" align="center" width="500"> <br> 
+<img src="IMAGENS/FOTO_1.png" align="center" width="500"> <br> 
+<img src="IMAGENS/FOTO_2.png" align="center" width="500"> <br>
+<img src="IMAGENS/FOTO_3.png" align="center" width="500"> <br>
 
 ## DESCRIÇÃO:
 Este projeto é uma ferramenta gráfica avançada para renomeação em massa de arquivos, criada com `customtkinter`. Permite renomear arquivos de qualquer tipo em um diretório, de forma rápida, segura e personalizada.
@@ -108,7 +110,7 @@ documento importante.txt → Documento importante.txt
 ```
 
 ### ORDEM DE RENOMEAÇÃO:
-> Visível e aplicável apenas quando o "MODO" selecionado é "GERAL".
+> Visível e aplicável apenas quando o `MODO` selecionado é `GERAL`.
 
 #### NOME:
 * **Ordenar por NOME:**
@@ -130,7 +132,7 @@ documento importante.txt → Documento importante.txt
   - Pode organizar do **mais antigo para o mais recente** ou vice-versa, dependendo da direção de ordenação escolhida (`CRESCENTE` ou `DESCRESCENTE`).
 
 ### BOTÃO CRESCENTE/DESCRESCENTE:
-> Visível e aplicável apenas quando o "MODO" selecionado é "GERAL".
+> Visível e aplicável apenas quando o `MODO` selecionado é `GERAL`.
 
 Esse botão de **"CRESCENTE/DESCRESCENTE"** controla a ordem em que os arquivos são organizados antes de serem renomeados:
 
