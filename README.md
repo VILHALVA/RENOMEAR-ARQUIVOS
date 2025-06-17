@@ -116,6 +116,11 @@ documento importante.txt → Documento importante.txt
 * **Ordenar por NOME:**
   - Ordena os arquivos em ordem alfabética pelo nome do arquivo (padrão simples).
 
+#### TÍTULO:
+* **Ordenar por TÍTULO:**
+  - Ordena os arquivos com base no campo **Title** presente nas **metatags ID3** de arquivos `.mp3`.
+  - É útil quando os arquivos de áudio possuem títulos corretos definidos nas propriedades do arquivo.
+
 #### NÚMERO:
 * **Ordenar por NÚMERO:**
   - Ordena os arquivos com base no **número da faixa** obtido dos metadados, por exemplo, da tag `tracknumber` em arquivos `.mp3`.
