@@ -120,6 +120,8 @@ documento importante.txt → Documento importante.txt
 * **Ordenar por TÍTULO:**
   - Ordena os arquivos com base no campo **Title** presente nas **metatags ID3** de arquivos `.mp3`.
   - É útil quando os arquivos de áudio possuem títulos corretos definidos nas propriedades do arquivo.
+  - A ordenação é feita em ordem alfabética dos títulos (ignorando maiúsculas/minúsculas).
+  - Requer que os arquivos tenham metadados válidos; arquivos sem título serão considerados com valor vazio `("")` e geralmente colocados no final ou início da lista, dependendo da ordem selecionada (crescente ou decrescente).
 
 #### NÚMERO:
 * **Ordenar por NÚMERO:**
