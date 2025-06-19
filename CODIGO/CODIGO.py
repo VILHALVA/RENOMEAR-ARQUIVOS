@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox
 import os
 import re
 import ctypes
+import traceback
 from mutagen.easyid3 import EasyID3
 
 ctk.set_appearance_mode("dark")
@@ -151,6 +152,7 @@ class RenomearArquivos:
             return
 
         arquivos = [f for f in os.listdir(pasta) if not is_oculto_ou_sistema(os.path.join(pasta, f))]
+        erros = []
 
         if modo == "GERAL":
             nome = self.entry_nome.get().strip()
@@ -166,16 +168,29 @@ class RenomearArquivos:
                     ext = os.path.splitext(arquivo)[1]
                     numero_atual = str(numero_inicial + i).zfill(casas_decimais)
                     novo_nome = f"{prefixo} {numero_atual}{ext}" if prefixo else f"{numero_atual}{ext}"
-                    self.backup_nomes.append((novo_nome, arquivo))
-                    os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
+                    origem = os.path.join(pasta, arquivo)
+                    destino = os.path.join(pasta, novo_nome)
+                    sucesso, erro = self.renomear_com_erro_tratado(origem, destino)
+                    if sucesso:
+                        self.backup_nomes.append((novo_nome, arquivo))
+                    elif erro:
+                        erros.append(erro)
             else:
                 for count, arquivo in enumerate(arquivos, start=1):
                     ext = os.path.splitext(arquivo)[1]
                     novo_nome = f"{nome} {count:02d}{ext}" if nome else f"{count:02d}{ext}"
-                    self.backup_nomes.append((novo_nome, arquivo))
-                    os.rename(os.path.join(pasta, arquivo), os.path.join(pasta, novo_nome))
+                    origem = os.path.join(pasta, arquivo)
+                    destino = os.path.join(pasta, novo_nome)
+                    sucesso, erro = self.renomear_com_erro_tratado(origem, destino)
+                    if sucesso:
+                        self.backup_nomes.append((novo_nome, arquivo))
+                    elif erro:
+                        erros.append(erro)
 
-            messagebox.showinfo("Sucesso", "Arquivos renomeados com sucesso!")
+            if erros:
+                messagebox.showerror("Erros durante a renomeação", "\n\n".join(erros))
+            else:
+                messagebox.showinfo("Sucesso", "Arquivos renomeados com sucesso!")
 
         elif modo == "0":
             qtd_zeros = self.var_zeros.get()
@@ -189,7 +204,7 @@ class RenomearArquivos:
 
                     if nome.isdigit():
                         if len(nome) >= qtd_zeros:
-                            continue  
+                            continue
                         novo_nome = f"{nome.zfill(qtd_zeros)}{ext}"
 
                     elif " " in nome:
@@ -201,11 +216,17 @@ class RenomearArquivos:
                             novo_nome = f"{prefixo} {sufixo}{ext}"
 
                     if novo_nome and novo_nome != arquivo:
-                        self.backup_nomes.append((novo_nome, arquivo))
-                        os.rename(caminho_antigo, os.path.join(pasta, novo_nome))
-                        renomeado = True
+                        destino = os.path.join(pasta, novo_nome)
+                        sucesso, erro = self.renomear_com_erro_tratado(caminho_antigo, destino)
+                        if sucesso:
+                            self.backup_nomes.append((novo_nome, arquivo))
+                            renomeado = True
+                        elif erro:
+                            erros.append(erro)
 
-            if renomeado:
+            if erros:
+                messagebox.showerror("Erros durante a renomeação", "\n\n".join(erros))
+            elif renomeado:
                 messagebox.showinfo("Sucesso", "Números atualizados com zeros à esquerda!")
             else:
                 messagebox.showwarning("Aviso", f"Nenhum arquivo foi renomeado. Todos já possuem {qtd_zeros} dígitos ou mais.")
@@ -216,9 +237,17 @@ class RenomearArquivos:
                 if os.path.isfile(caminho):
                     nome, ext = os.path.splitext(arquivo)
                     novo_nome = f"{nome.upper()}{ext}"
-                    self.backup_nomes.append((novo_nome, arquivo))
-                    os.rename(caminho, os.path.join(pasta, novo_nome))
-            messagebox.showinfo("Sucesso", "Arquivos renomeados para MAIÚSCULO!")
+                    destino = os.path.join(pasta, novo_nome)
+                    sucesso, erro = self.renomear_com_erro_tratado(caminho, destino)
+                    if sucesso:
+                        self.backup_nomes.append((novo_nome, arquivo))
+                    elif erro:
+                        erros.append(erro)
+
+            if erros:
+                messagebox.showerror("Erros durante a renomeação", "\n\n".join(erros))
+            else:
+                messagebox.showinfo("Sucesso", "Arquivos renomeados para MAIÚSCULO!")
 
         elif modo == "LOWER":
             for arquivo in arquivos:
@@ -226,9 +255,17 @@ class RenomearArquivos:
                 if os.path.isfile(caminho):
                     nome, ext = os.path.splitext(arquivo)
                     novo_nome = f"{nome.lower()}{ext}"
-                    self.backup_nomes.append((novo_nome, arquivo))
-                    os.rename(caminho, os.path.join(pasta, novo_nome))
-            messagebox.showinfo("Sucesso", "Arquivos renomeados para minúsculo!")
+                    destino = os.path.join(pasta, novo_nome)
+                    sucesso, erro = self.renomear_com_erro_tratado(caminho, destino)
+                    if sucesso:
+                        self.backup_nomes.append((novo_nome, arquivo))
+                    elif erro:
+                        erros.append(erro)
+
+            if erros:
+                messagebox.showerror("Erros durante a renomeação", "\n\n".join(erros))
+            else:
+                messagebox.showinfo("Sucesso", "Arquivos renomeados para minúsculo!")
 
         elif modo == "MISTO":
             for arquivo in arquivos:
@@ -236,10 +273,26 @@ class RenomearArquivos:
                 if os.path.isfile(caminho):
                     nome, ext = os.path.splitext(arquivo)
                     novo_nome = f"{nome.capitalize()}{ext}"
-                    self.backup_nomes.append((novo_nome, arquivo))
-                    os.rename(caminho, os.path.join(pasta, novo_nome))
-            messagebox.showinfo("Sucesso", "Arquivos com apenas a primeira letra maiúscula!")
+                    destino = os.path.join(pasta, novo_nome)
+                    sucesso, erro = self.renomear_com_erro_tratado(caminho, destino)
+                    if sucesso:
+                        self.backup_nomes.append((novo_nome, arquivo))
+                    elif erro:
+                        erros.append(erro)
 
+            if erros:
+                messagebox.showerror("Erros durante a renomeação", "\n\n".join(erros))
+            else:
+                messagebox.showinfo("Sucesso", "Arquivos com apenas a primeira letra maiúscula!")
+
+    def renomear_com_erro_tratado(self, origem, destino):
+        try:
+            os.rename(origem, destino)
+            return True, None
+        except Exception:
+            erro_completo = traceback.format_exc()
+            return False, f"{os.path.basename(origem)} → {os.path.basename(destino)}:\n{erro_completo}"
+        
     def resetar_nomes(self):
         pasta = self.entry_pasta.get().strip()
         if not self.backup_nomes:
