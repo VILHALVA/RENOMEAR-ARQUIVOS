@@ -2,7 +2,7 @@
 
 ## VERSÃO 1.4 - 14/06/2025
 * ✅**Controles de ordenação visíveis apenas no modo GERAL:** Os botões de ordenação e o switch de ordem agora só aparecem e funcionam quando o modo GERAL está selecionado.
-* ✅**Seção de zeros à esquerda (modo `0`):** Ao selecionar o modo `0`, uma nova seção é exibida acima do botão RENOMEAR, contendo o controle QUANTIDADE — um *slider* que vai de 1 a 9. Esse controle permite definir o número total de dígitos desejado nos números finais dos nomes dos arquivos. O valor padrão é 3 dígitos.
+* ✅**Seção de zeros à esquerda (modo `0`):** Ao selecionar o modo `0`, uma nova seção é exibida acima do botão "RENOMEAR", contendo o controle `QUANTIDADE` — um *slider* que vai de 1 a 9. Esse controle permite definir o número total de dígitos desejado nos números finais dos nomes dos arquivos. O valor padrão é 3 dígitos.
 * ✅**Botão RESETAR:** Permite desfazer a última renomeação realizada, restaurando os nomes originais dos arquivos. Não feche o aplicativo ou inicie uma nova renomeação, senão a ação de resetar será perdida.
 ---
 
