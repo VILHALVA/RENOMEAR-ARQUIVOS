@@ -21,14 +21,14 @@
 ---
 
 ## VERSÃO 1.2 - 21/05/2025
-* ✅Este aplicativo agora utiliza a biblioteca `customtkinter` para uma interface gráfica mais moderna e estilizada, substituindo o antigo tkinter. 
+* ✅Este aplicativo agora utiliza a biblioteca `customtkinter` para uma interface gráfica mais moderna e estilizada, substituindo o antigo `tkinter`. 
 * ✅Foi adicionado um novo botão chamado `MISTO`, que renomeia os arquivos convertendo apenas a primeira letra de cada nome para maiúscula.
 ---
 
 ## VERSÃO 1.1 - 20/05/2025:
 * ✅O aplicativo agora se chama "RENOMEAR ARQUIVOS".
 * ✅Foi criado o instalador.
-* ✅Renomeia arquivos com 4 modos: GERAL (ordem por ID3), 0 (adiciona "0"), UPPER e LOWER. Campo "NOME UNIVERSAL" aparece só no modo GERAL. Feedback via pop-ups.
+* ✅Renomeia arquivos com 4 modos: `GERAL` (ordem por ID3), `0` (adiciona "0"), `UPPER` e `LOWER`. Campo "NOME UNIVERSAL" aparece só no modo `GERAL`. Feedback via pop-ups.
 * ✅Os aplicativos apagados foram: "RENOMEAR PARA 0" e "RENOMEAR UPPER" -> (06/12/2023).
 ---
 
