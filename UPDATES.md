@@ -33,4 +33,14 @@
 ---
 
 ## VERSÃO 1.0 - 06/12/2023:
-* ✅O aplicativo é lançado oficialmente com o nome `RENOMEAR MUSICAS`, feito com `tkinter`.
+* ✅**O aplicativo é lançado oficialmente com o nome `RENOMEAR MUSICAS`, desenvolvido com `tkinter`:**
+A interface conta com um botão "SELECIONAR", utilizado para escolher o diretório, um campo para inserir o nome universal (aceitando apenas um parâmetro) e o botão "RENOMEAR".
+Uma `messagebox` é exibida ao final do processo, indicando se a renomeação foi bem-sucedida ou se ocorreu algum erro.
+* ✅**Em `18/12/2023`, foram feitas algumas melhorias no aplicativo (1.0.1):**
+  * 🔹Adição de um rodapé com meu nome e meu username do GitHub.
+  * 🔹Refatoração e revisão do código para maior clareza e eficiência.
+  * 🔹Inclusão do nome e do ícone oficial do aplicativo.
+  * 🔹Alteração no parâmetro de compilação, eliminando a necessidade de o usuário ter pacotes do módulo `_internal` instalados no sistema. Agora, o aplicativo é totalmente autônomo.
+
+
+
